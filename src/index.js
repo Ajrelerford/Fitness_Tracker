@@ -15,15 +15,17 @@ import {
   MyRoutines,
   Routines,
   Header,
+  Register,
 } from "./components";
 
 const App = () => {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
+  const [status, setStatus] = useState({});
 
   return (
     <Router>
-      <Header />
+      <Header user={user} setUser={setUser} token={token} setToken={setToken} />
       
       <Switch>
         <Route exact path="/routines">
@@ -36,7 +38,10 @@ const App = () => {
           <h3>Activities</h3>
         </Route>
         <Route path="/login">
-          <h3>Login</h3>
+          <Login token={token} setToken={setToken} status= {status}  setStatus = {setStatus} setUser={setUser} />
+        </Route>
+        <Route path="/register">
+          <Register token={token} setToken={setToken} status= {status}  setStatus = {setStatus} setUser={setUser} />
         </Route>
       </Switch>
     </Router>

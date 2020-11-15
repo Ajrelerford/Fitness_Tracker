@@ -5,7 +5,7 @@ import axios from "axios";
 import { callApi } from "../api";
 import { useHistory } from "react-router-dom";
 
-const Login = (props) => {
+const Register = (props) => {
   const { token, setToken, setUser, status, setStatus } = props;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,10 +15,11 @@ const Login = (props) => {
 
   const handleLogin = async (event) => {
     try {
+      setStatus({})
       event.preventDefault();
       console.log(username);
-      const response = await axios.post(`${BASE_URL}/users/login`, 
-        {'username': username, 'password': password },
+      const response = await axios.post(`${BASE_URL}/users/register`, 
+        { 'username': username, 'password':password },
       );
       const { data } = response;
       console.log("login result: ", data);
@@ -29,7 +30,7 @@ const Login = (props) => {
         setUsername("");
         setPassword("");
         console.log("token: ", data.token);
-        setToken(data.data.token);
+        setToken(data.token);
         const user = await callApi({
           token: data.token,
           url: "/users/me",
@@ -53,7 +54,7 @@ const Login = (props) => {
 
   return (
     <>
-    <h1>Login</h1> 
+    <h1>Register</h1> 
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="Username">Username</label>
@@ -83,10 +84,10 @@ const Login = (props) => {
         </button>
       </form>
       {status.error ? 
-        <div class="alert alert-danger" role="alert">
+        <div className="alert alert-danger" role="alert">
         {`${status.error}`}
         </div>: ''}
     </>
   );
 };
-export default Login;
+export default Register;

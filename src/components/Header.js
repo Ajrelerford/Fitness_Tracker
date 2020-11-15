@@ -3,18 +3,19 @@ import { NavLink } from "react-router-dom";
 import "../bootstrap.min.css";
 
 const Header = (props) => {
-  const { user } = props;
-  
+  const {  user, setUser, token, setToken } = props;
+ 
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a className="navbar-brand" href="#">
         Fitness Trac.kr
       </a>
-     
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+
+      <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div className="navbar-nav">
           <NavLink
-            exact to="/"
+            exact
+            to="/"
             className="nav-link"
             activeClassName="nav-link active"
           >
@@ -27,7 +28,7 @@ const Header = (props) => {
           >
             Routines
           </NavLink>
-          {user ? (
+          {user.username ? (
             <NavLink
               to="/my_routines"
               className="nav-link"
@@ -45,27 +46,49 @@ const Header = (props) => {
           >
             Activities
           </NavLink>
-          {!user ? (
+          {!user.username ? (
             <>
-            <NavLink
-              to="/login"
-              className="nav-link my-2 my-sm-0"
-              activeClassName="nav-link active"
-            >
-              Login/Register
-            </NavLink>
+              <NavLink
+                to="/login"
+                className="nav-link my-2 my-sm-0"
+                activeClassName="nav-link active"
+              >
+                Login
+              </NavLink>
             </>
           ) : (
             ""
           )}
-          {user ? (
+          {!user.username ? (
+            <>
+              <NavLink
+                to="/register"
+                className="nav-link my-2 my-sm-0"
+                activeClassName="nav-link active"
+              >
+                Register
+              </NavLink>
+            </>
+          ) : (
+            ""
+          )}
+          {user && user.username ? (
             <NavLink
               to="/"
               className="nav-link"
               activeClassName="nav-link active"
+              onClick={() => {
+                setToken("");
+                setUser({});
+              }}
             >
               Log out
             </NavLink>
+          ) : (
+            ""
+          )}
+          {user.username ? (
+            <h3 className="text-info">User: {user.username}</h3>
           ) : (
             ""
           )}
