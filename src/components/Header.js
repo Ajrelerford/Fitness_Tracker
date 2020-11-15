@@ -4,7 +4,7 @@ import "../bootstrap.min.css";
 
 const Header = (props) => {
   const {  user, setUser, token, setToken } = props;
- 
+  useEffect(()=> {}, [user])
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <a className="navbar-brand" href="#">

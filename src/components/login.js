@@ -29,13 +29,13 @@ const Login = (props) => {
         setUsername("");
         setPassword("");
         console.log("token: ", data.token);
-        setToken(data.data.token);
+        setToken(data.token);
         const user = await callApi({
           token: data.token,
           url: "/users/me",
         });
         console.log("user", user);
-        if (user && user.user) {
+        if (user && user.username) {
           setUser(user);
         }
         // redirect upon login

@@ -18,6 +18,10 @@ import {
   Register,
 } from "./components";
 
+import {
+  getCurrentUser
+} from './auth';
+
 const App = () => {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
@@ -29,13 +33,14 @@ const App = () => {
       
       <Switch>
         <Route exact path="/routines">
-          <h3>Routines </h3>
+          <Routines />
         </Route>
         <Route path="/my_routines">
           <h3>My Routines</h3>
+          
         </Route>
         <Route path="/activities">
-          <h3>Activities</h3>
+          <Activities />
         </Route>
         <Route path="/login">
           <Login token={token} setToken={setToken} status= {status}  setStatus = {setStatus} setUser={setUser} />
