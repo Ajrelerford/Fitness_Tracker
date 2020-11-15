@@ -1,9 +1,9 @@
 import React from 'react';
 
 
-const Login = (props) => {
+const Home = (props) => {
     return 
     
 }
 
-export default Login;
+export default Home;
