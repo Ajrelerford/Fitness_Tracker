@@ -4,6 +4,7 @@ const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api/";
 import axios from "axios";
 import { callApi } from "../api";
 import { useHistory } from "react-router-dom";
+import { storeCurrentUser } from "../auth";
 
 const Login = (props) => {
   const { token, setToken, setUser, status, setStatus } = props;
@@ -36,7 +37,9 @@ const Login = (props) => {
         });
         console.log("user", user);
         if (user && user.username) {
+          storeCurrentUser(user);
           setUser(user);
+          
         }
         // redirect upon login
         history.push("/routines");
@@ -85,7 +88,10 @@ const Login = (props) => {
       {status.error ? 
         <div class="alert alert-danger" role="alert">
         {`${status.error}`}
-        </div>: ''}
+        </div>: ''
+        
+        }
+        {setStatus('')}
     </>
   );
 };

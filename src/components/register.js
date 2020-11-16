@@ -4,7 +4,7 @@ const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api/";
 import axios from "axios";
 import { callApi } from "../api";
 import { useHistory } from "react-router-dom";
-
+import {storeCurrentUser} from "../auth";
 const Register = (props) => {
   const { token, setToken, setUser, status, setStatus } = props;
   const [username, setUsername] = useState("");
@@ -15,7 +15,6 @@ const Register = (props) => {
 
   const handleLogin = async (event) => {
     try {
-      setStatus({})
       event.preventDefault();
       console.log(username);
       const response = await axios.post(`${BASE_URL}/users/register`, 
@@ -36,8 +35,9 @@ const Register = (props) => {
           url: "/users/me",
         });
         console.log("user", user);
-        if (user && user.user) {
-          setUser(user);
+        if (user && user.username) {
+            storeCurrentUser(user);
+            setUser(user);
         }
         // redirect upon login
         history.push("/routines");
