@@ -14,7 +14,7 @@ const Routines = (props) => {
   };
   useEffect(() => {
     getRoutines();
-  }, []);
+  }, [token]);
 
   return (
     <>

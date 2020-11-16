@@ -4,7 +4,7 @@ const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api/";
 import axios from "axios";
 import { callApi } from "../api";
 import { useHistory } from "react-router-dom";
-import {storeCurrentUser} from "../auth";
+import {storeCurrentUser, storeCurrentToken} from "../auth";
 const Register = (props) => {
   const { token, setToken, setUser, status, setStatus } = props;
   const [username, setUsername] = useState("");
@@ -29,6 +29,7 @@ const Register = (props) => {
         setUsername("");
         setPassword("");
         console.log("token: ", data.token);
+        storeCurrentToken(data.token)
         setToken(data.token);
         const user = await callApi({
           token: data.token,
@@ -54,8 +55,8 @@ const Register = (props) => {
 
   return (
     <>
-    <h1>Register</h1> 
-      <form onSubmit={handleLogin}>
+    <h1 style={{margin: 'auto', width: '50%',   padding: '10px'}}>Register</h1> 
+      <form style={{margin: 'auto', width: '50%',   padding: '10px'}} onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="Username">Username</label>
           <input

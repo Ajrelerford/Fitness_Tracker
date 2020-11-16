@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "../bootstrap.min.css";
-import {clearCurrentUser} from '../auth'
+import {clearCurrentUser, clearCurrentToken} from '../auth'
 const Header = (props) => {
   const {  user, setUser, token, setToken } = props;
   useEffect(()=> {}, [user])
@@ -81,6 +81,7 @@ const Header = (props) => {
                 setToken("");
                 setUser({});
                 clearCurrentUser();
+                clearCurrentToken();
               }}
             >
               Log out

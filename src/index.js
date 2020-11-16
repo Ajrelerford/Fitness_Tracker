@@ -19,11 +19,12 @@ import {
 } from "./components";
 
 import {
-  getCurrentUser
+  getCurrentUser,
+  getCurrentToken
 } from './auth';
 
 const App = () => {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(getCurrentToken()||'');
   const [user, setUser] = useState(getCurrentUser()||{});
   const [status, setStatus] = useState({});
 
@@ -40,7 +41,7 @@ const App = () => {
           
         </Route>
         <Route path="/activities">
-          <Activities />
+          <Activities token={token}/>
         </Route>
         <Route path="/login">
           <Login token={token} setToken={setToken} status= {status}  setStatus = {setStatus} setUser={setUser} />
