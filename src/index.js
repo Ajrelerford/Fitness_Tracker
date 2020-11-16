@@ -34,10 +34,10 @@ const App = () => {
       
       <Switch>
         <Route exact path="/routines">
-          <Routines />
+          <Routines token={token} user={user}/>
         </Route>
         <Route path="/my_routines">
-          <h3>My Routines</h3>
+          <MyRoutines token= {token} user={user} />
           
         </Route>
         <Route path="/activities">

@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { callApi } from "../api";
 import "../bootstrap.min.css";
 const Routines = (props) => {
+  const {token, user} = props
   const [routines, setRoutines] = useState([]);
+  const [update, setUpdate] = useState('');
   const getRoutines = async () => {
     try {
       const routinesArr = await callApi({ url: "/routines" });
       setRoutines(routinesArr);
+      
       console.log("routines: ", routinesArr);
     } catch (error) {
       console.error(error);
@@ -14,8 +17,22 @@ const Routines = (props) => {
   };
   useEffect(() => {
     getRoutines();
-  }, [token]);
+  }, [update]);
 
+  const deleteRoutine = async (id) => {
+    try {
+      
+      const response = await callApi({
+        url: `/routines/${id}`,
+        token: token,
+        method: "delete",
+      });
+      setUpdate(response);
+      console.log("response: ", response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <>
       <h3>Routines</h3>
@@ -42,6 +59,13 @@ const Routines = (props) => {
                 </div>
               
             ))}
+            {user.username === routine.creatorName
+              ? <button class="btn btn-primary" >Edit</button>
+              : ""}
+            
+            {user.username === routine.creatorName
+              ? <button class="btn btn-danger" onClick = {()=>deleteRoutine(routine.id)} >Delete</button>
+              : ""}
           </div>
         </div>
       ))}
